@@ -1,10 +1,41 @@
 import { ReactNode } from 'react'
-import { TouchableOpacity, TouchableOpacityProps } from 'react-native'
+import { Text, TouchableOpacity, TouchableOpacityProps } from 'react-native'
 
 interface ButtonProps extends TouchableOpacityProps {
   children: ReactNode
 }
 
-export function Button({ children, ...rest }: ButtonProps) {
-  return <TouchableOpacity {...rest}>{children}</TouchableOpacity>
+interface ButtonTextProps {
+  children: ReactNode
 }
+
+interface ButtonIconProps {
+  children: ReactNode
+}
+
+function Button({ children, ...rest }: ButtonProps) {
+  return (
+    <TouchableOpacity
+      className="h-12 flex-row items-center justify-center rounded-md bg-lime-400"
+      activeOpacity={0.7}
+      {...rest}
+    >
+      {children}
+    </TouchableOpacity>
+  )
+}
+
+function ButtonText({ children }: ButtonTextProps) {
+  return (
+    <Text className="mx-2 font-heading text-base text-black">{children}</Text>
+  )
+}
+
+function ButtonIcon({ children }: ButtonIconProps) {
+  return children
+}
+
+Button.Text = ButtonText
+Button.Icon = ButtonIcon
+
+export { Button }

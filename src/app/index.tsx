@@ -5,12 +5,19 @@ import { FlatList, SectionList, Text, View } from 'react-native'
 import { CategoryButton } from '@/components/category-button'
 import { Header } from '@/components/header'
 import { Product } from '@/components/product'
-import { CATEGORIES, MENU } from '@/utils/data/products'
+import { useCartStore } from '@/stores/cart-store'
+import { CATEGORIES, MENU, ProductProps } from '@/utils/data/products'
 
 export default function Home() {
+  const cartStore = useCartStore()
   const [selectedCategory, setSelectedCategory] = useState(CATEGORIES[0])
 
-  const sectionListRef = useRef<SectionList>(null)
+  const sectionListRef = useRef<SectionList<ProductProps>>(null)
+
+  const cartQuantityItems = cartStore.products.reduce(
+    (total, product) => total + product.quantity,
+    0,
+  )
 
   function handleCategorySelect(item: string) {
     setSelectedCategory(item)
@@ -30,7 +37,7 @@ export default function Home() {
 
   return (
     <View className="flex-1 pt-8">
-      <Header title="Cardápio" cardQuantityItems={1} />
+      <Header title="Cardápio" cardQuantityItems={cartQuantityItems} />
 
       <FlatList
         data={CATEGORIES}
