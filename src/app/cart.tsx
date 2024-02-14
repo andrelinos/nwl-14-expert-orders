@@ -12,7 +12,7 @@ import { Product } from '@/components/product'
 import { ProductCartProps, useCartStore } from '@/stores/cart-store'
 import { formatCurrency } from '@/utils/functions/format-currency'
 
-const PHONE_NUMBER = '5532999116211'
+const PHONE_NUMBER = 'PHONE_NUMBER'
 
 export default function Cart() {
   const [address, setAddress] = useState('')
